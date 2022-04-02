@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "794673207558",
+    "project_id": "socialpromo-afd28",
+    "storage_bucket": "socialpromo-afd28.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:794673207558:android:4d39cb04b73b8ebc272687",
+        "android_client_info": {
+          "package_name": "com.example.socialpromoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "794673207558-h1h0tgcg7fdigrmtcfn03qits2efjfnn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvHEAlXOqFQwo5gRtsXnUaN77mFv-k91s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "794673207558-h1h0tgcg7fdigrmtcfn03qits2efjfnn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
