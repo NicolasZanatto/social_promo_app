@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.example.socialpromoapp.MainActivity;
 import com.example.socialpromoapp.R;
+import com.example.socialpromoapp.models.Login;
+import com.example.socialpromoapp.repositories.login.LoginRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -26,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
 
     FirebaseAuth mAuth;
+    LoginRepository loginRepository;
+    Login loginModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
 
         mAuth = FirebaseAuth.getInstance();
-
+        loginRepository = new LoginRepository();
         btnLogin.setOnClickListener(view -> {
+            loginModel = new Login(etLoginEmail.getText().toString(),etLoginPassword.getText().toString());
             loginUser();
         });
         tvRegisterHere.setOnClickListener(view ->{
@@ -48,28 +53,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(){
-        String email = etLoginEmail.getText().toString();
-        String password = etLoginPassword.getText().toString();
+        if(!loginModel.validarLogin(etLoginEmail,etLoginPassword )) return;
 
-        if (TextUtils.isEmpty(email)){
-            etLoginEmail.setError("Email cannot be empty");
-            etLoginEmail.requestFocus();
-        }else if (TextUtils.isEmpty(password)){
-            etLoginPassword.setError("Password cannot be empty");
-            etLoginPassword.requestFocus();
-        }else{
-            mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()){
-                        Toast.makeText(LoginActivity.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    }else{
-                        Toast.makeText(LoginActivity.this, "Log in Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
+        Runnable taskSuccesfully = new Runnable() {
+            public void run() {
+                Toast.makeText(LoginActivity.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            }
+        };
+
+        Runnable taskFailed = new Runnable() {
+            public void run() {
+                Toast.makeText(LoginActivity.this, "Login Inválido: ", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        loginModel.realizarLogin(taskSuccesfully, taskFailed);
     }
 
 }
