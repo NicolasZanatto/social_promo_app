@@ -1,23 +1,18 @@
 package com.example.socialpromoapp.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.socialpromoapp.MainActivity;
 import com.example.socialpromoapp.R;
-import com.example.socialpromoapp.models.Login;
+import com.example.socialpromoapp.models.UsuarioModel;
 import com.example.socialpromoapp.repositories.login.LoginRepository;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
@@ -29,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     LoginRepository loginRepository;
-    Login loginModel;
+    UsuarioModel usuarioModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         loginRepository = new LoginRepository();
         btnLogin.setOnClickListener(view -> {
-            loginModel = new Login(etLoginEmail.getText().toString(),etLoginPassword.getText().toString());
+            usuarioModel = new UsuarioModel(etLoginEmail.getText().toString(),etLoginPassword.getText().toString());
             loginUser();
         });
         tvRegisterHere.setOnClickListener(view ->{
@@ -53,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(){
-        if(!loginModel.validarLogin(etLoginEmail,etLoginPassword )) return;
+        if(!usuarioModel.validarLogin(etLoginEmail,etLoginPassword )) return;
 
         Runnable taskSuccesfully = new Runnable() {
             public void run() {
@@ -68,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
 
-        loginModel.realizarLogin(taskSuccesfully, taskFailed);
+        usuarioModel.realizarLogin(taskSuccesfully, taskFailed);
     }
 
 }
