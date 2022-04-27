@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.socialpromoapp.FeedActivity;
 import com.example.socialpromoapp.MainActivity;
 import com.example.socialpromoapp.R;
 import com.example.socialpromoapp.models.UsuarioModel;
@@ -53,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         Runnable taskSuccesfully = new Runnable() {
             public void run() {
                 Toast.makeText(LoginActivity.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, FeedActivity.class));
             }
         };
 

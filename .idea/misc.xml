@@ -3,9 +3,26 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.2745" />
+        <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/drawable/ic_baseline_attach_money_24.xml" value="0.332" />
+        <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/drawable/ic_menu_camera.xml" value="0.2745" />
+        <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.2745" />
+        <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.2745" />
+        <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/drawable/side_nav_bar.xml" value="0.332" />
+        <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/layout/activity_feed.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/layout/activity_login.xml" value="0.4282238442822384" />
         <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/layout/activity_main.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/layout/activity_postagem.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/layout/activity_register.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/layout/app_bar_feed.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/layout/content_feed.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/layout/dropdown_menu_popup_item.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/layout/fragment_gallery.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/layout/fragment_home.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/layout/fragment_slideshow.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/layout/nav_header_feed.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/menu/activity_main_drawer.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/nicol/Documents/UCS/SocialPromoApp/app/src/main/res/menu/feed.xml" value="0.26979166666666665" />
       </map>
     </option>
   </component>

@@ -37,5 +37,7 @@ public class MainActivity extends AppCompatActivity {
         if (user == null){
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
+        else
+            startActivity(new Intent(MainActivity.this, FeedActivity.class));
     }
 }
