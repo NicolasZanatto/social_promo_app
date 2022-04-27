@@ -5,10 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
-import com.example.socialpromoapp.activities.PostagemActivity;
-import com.example.socialpromoapp.ui.gallery.GalleryFragment;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.socialpromoapp.activities.LoginActivity;
+import com.example.socialpromoapp.databinding.ActivityFeedBinding;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -17,26 +18,35 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.socialpromoapp.databinding.ActivityFeedBinding;
-
 public class FeedActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityFeedBinding binding;
-
+    private NavController navController;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityFeedBinding.inflate(getLayoutInflater());
+        mAuth = FirebaseAuth.getInstance();
+
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarFeed.toolbar);
+
+
         binding.appBarFeed.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_content_feed, new GalleryFragment()).commit();
-                //startActivity(new Intent(FeedActivity.this, PostagemActivity.class));
+                FirebaseUser user = mAuth.getCurrentUser();
+
+                if(user == null){
+                    startActivity(new Intent(FeedActivity.this, LoginActivity.class));
+                }
+                else {
+                    navController.navigate(R.id.nav_postagem);
+                }
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
@@ -44,10 +54,10 @@ public class FeedActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_postagem)
                 .setOpenableLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_feed);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_feed);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
