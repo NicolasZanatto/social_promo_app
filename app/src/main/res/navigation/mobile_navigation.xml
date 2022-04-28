@@ -13,19 +13,25 @@
         tools:layout="@layout/fragment_feed" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.socialpromoapp.ui.cadastro.CadastroFragment"
-        android:label="@string/menu_perfil"
-        tools:layout="@layout/fragment_cadastro" />
-
-    <fragment
         android:id="@+id/nav_postagem"
         android:name="com.example.socialpromoapp.ui.postagem.PostagemFragment"
-        android:label="@string/action_cadastrar"
+        android:label="@string/action_cadastrar_postagem"
         tools:layout="@layout/fragment_postagem" />
     <fragment
         android:id="@+id/nav_deslogar"
         android:name="com.example.socialpromoapp.ui.deslogar.DeslogarFragment"
         android:label="@string/menu_deslogar"
         tools:layout="@layout/fragment_deslogar" />
+
+    <fragment
+        android:id="@+id/nav_registrar"
+        android:name="com.example.socialpromoapp.ui.cadastro.CadastroFragment"
+        android:label="@string/action_cadastrar_usuario"
+        tools:layout="@layout/fragment_cadastro" />
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.example.socialpromoapp.ui.login.LoginFragment"
+        android:label="Realizar Login"
+        tools:layout="@layout/fragment_login" />
+
 </navigation>

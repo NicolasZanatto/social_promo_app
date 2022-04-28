@@ -22,9 +22,6 @@
         </activity>
 
         <activity
-            android:name=".activities.PostagemActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.LoginActivity"
             android:exported="false" />
         <activity

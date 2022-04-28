@@ -1,12 +1,7 @@
 package com.example.socialpromoapp.repositories.login;
 
-import android.content.Intent;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 
-import com.example.socialpromoapp.activities.LoginActivity;
-import com.example.socialpromoapp.activities.RegisterActivity;
 import com.example.socialpromoapp.models.UsuarioModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

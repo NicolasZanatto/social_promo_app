@@ -12,8 +12,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.socialpromoapp.MainActivity;
+import com.example.socialpromoapp.R;
 import com.example.socialpromoapp.activities.LoginActivity;
 import com.example.socialpromoapp.databinding.FragmentCadastroBinding;
 import com.example.socialpromoapp.models.UsuarioModel;
@@ -36,6 +39,7 @@ public class CadastroFragment extends Fragment {
     TextView tvLoginHere;
     Button btnRegister;
     FirebaseAuth mAuth;
+    private NavController navController;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -56,13 +60,14 @@ public class CadastroFragment extends Fragment {
         btnRegister = binding.btnRegister;
 
         mAuth = FirebaseAuth.getInstance();
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_feed);
 
         btnRegister.setOnClickListener(view ->{
             createUser();
         });
 
         tvLoginHere.setOnClickListener(view ->{
-            startActivity(new Intent(new MainActivity(), LoginActivity.class));
+            navController.navigate(R.id.nav_login);
         });
 
         etRegDataNascimento.addTextChangedListener(MaskEditUtil.mask(etRegDataNascimento, MaskEditUtil.FORMAT_DATE));
@@ -97,7 +102,7 @@ public class CadastroFragment extends Fragment {
     Runnable funcSucesso = new Runnable() {
         public void run() {
             Toast.makeText(getActivity(), "Usuário cadastrado com sucesso", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getActivity(), LoginActivity.class));
+            navController.navigate(R.id.nav_feed);
         }
     };
 
