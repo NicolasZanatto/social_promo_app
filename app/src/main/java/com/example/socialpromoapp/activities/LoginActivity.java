@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Runnable taskSuccesfully = new Runnable() {
             public void run() {
-                Toast.makeText(LoginActivity.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Usuário logado com sucesso", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
             }
         };

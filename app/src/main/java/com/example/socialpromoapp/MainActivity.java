@@ -9,6 +9,7 @@ import android.view.Menu;
 import com.example.socialpromoapp.activities.LoginActivity;
 import com.example.socialpromoapp.databinding.ActivityMainBinding;
 import com.example.socialpromoapp.ui.modais.DeslogarModal;
+import com.example.socialpromoapp.ui.modais.SairModal;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -78,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId())
         {
-            case R.id.action_deslogar:
-                DeslogarModal deslogarModal =new DeslogarModal(this);
-                deslogarModal.show();
+            case R.id.action_sair:
+                SairModal sairModal =new SairModal(this);
+                sairModal.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
