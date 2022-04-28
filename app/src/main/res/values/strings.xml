@@ -14,5 +14,6 @@
     <string name="menu_minhas_publicacoes">Minhas Publicações</string>
     <string name="menu_filtrar">Filtrar</string>
     <string name="menu_sobre">Sobre</string>
-    <string name="menu_sair">Sair</string>
+    <string name="menu_deslogar">Deslogar</string>
+
 </resources>

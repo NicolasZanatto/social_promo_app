@@ -60,7 +60,7 @@ public class DeslogarModal extends Dialog implements
                 c.startActivity(i);
                 break;
             case R.id.btnCancelar:
-                dismiss();
+                c.onBackPressed();
                 break;
             default:
                 break;

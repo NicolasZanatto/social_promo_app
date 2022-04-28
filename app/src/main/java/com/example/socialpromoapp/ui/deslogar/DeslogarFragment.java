@@ -1,4 +1,4 @@
-package com.example.socialpromoapp.ui.slideshow;
+package com.example.socialpromoapp.ui.deslogar;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.socialpromoapp.databinding.FragmentSlideshowBinding;
+import com.example.socialpromoapp.databinding.FragmentDeslogarBinding;
+import com.example.socialpromoapp.ui.modais.DeslogarModal;
 
-public class SlideshowFragment extends Fragment {
+public class DeslogarFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+    private FragmentDeslogarBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SlideshowViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        DeslogarViewModel deslogarViewModel =
+                new ViewModelProvider(this).get(DeslogarViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentDeslogarBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        DeslogarModal deslogarModal = new DeslogarModal(getActivity());
+        deslogarModal.show();
         return root;
     }
 

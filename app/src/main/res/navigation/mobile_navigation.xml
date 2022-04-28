@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@id/nav_feed">
+
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.socialpromoapp.ui.home.FeedFragment"
-        android:label="@string/menu_minhas_publicacoes"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_feed"
+        android:name="com.example.socialpromoapp.ui.feed.FeedFragment"
+        android:label="@string/menu_feed"
+        tools:layout="@layout/fragment_feed" />
 
     <fragment
         android:id="@+id/nav_gallery"
@@ -18,14 +19,13 @@
         tools:layout="@layout/fragment_cadastro" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.socialpromoapp.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_sobre"
-        tools:layout="@layout/fragment_slideshow" />
-
-    <fragment
         android:id="@+id/nav_postagem"
         android:name="com.example.socialpromoapp.ui.postagem.PostagemFragment"
         android:label="@string/action_cadastrar"
         tools:layout="@layout/fragment_postagem" />
+    <fragment
+        android:id="@+id/nav_deslogar"
+        android:name="com.example.socialpromoapp.ui.deslogar.DeslogarFragment"
+        android:label="@string/menu_deslogar"
+        tools:layout="@layout/fragment_deslogar" />
 </navigation>
