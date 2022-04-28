@@ -13,10 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.socialpromoapp.FeedActivity;
-import com.example.socialpromoapp.R;
+import com.example.socialpromoapp.MainActivity;
 import com.example.socialpromoapp.activities.LoginActivity;
-import com.example.socialpromoapp.activities.RegisterActivity;
 import com.example.socialpromoapp.databinding.FragmentCadastroBinding;
 import com.example.socialpromoapp.models.UsuarioModel;
 import com.example.socialpromoapp.models.utils.MaskEditUtil;
@@ -64,7 +62,7 @@ public class CadastroFragment extends Fragment {
         });
 
         tvLoginHere.setOnClickListener(view ->{
-            startActivity(new Intent(new FeedActivity(), LoginActivity.class));
+            startActivity(new Intent(new MainActivity(), LoginActivity.class));
         });
 
         etRegDataNascimento.addTextChangedListener(MaskEditUtil.mask(etRegDataNascimento, MaskEditUtil.FORMAT_DATE));

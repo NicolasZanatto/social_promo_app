@@ -26,6 +26,6 @@
     <fragment
         android:id="@+id/nav_postagem"
         android:name="com.example.socialpromoapp.ui.postagem.PostagemFragment"
-        android:label="@string/menu_minhas_publicacoes"
+        android:label="@string/action_cadastrar"
         tools:layout="@layout/fragment_postagem" />
 </navigation>
