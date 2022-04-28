@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 
 import com.example.socialpromoapp.MainActivity;
 import com.example.socialpromoapp.R;
-import com.example.socialpromoapp.activities.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

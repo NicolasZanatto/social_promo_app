@@ -1,14 +1,11 @@
 package com.example.socialpromoapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
-import com.example.socialpromoapp.activities.LoginActivity;
 import com.example.socialpromoapp.databinding.ActivityMainBinding;
-import com.example.socialpromoapp.ui.modais.DeslogarModal;
 import com.example.socialpromoapp.ui.modais.SairModal;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;

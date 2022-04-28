@@ -1,6 +1,5 @@
 package com.example.socialpromoapp.ui.cadastro;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.example.socialpromoapp.MainActivity;
 import com.example.socialpromoapp.R;
-import com.example.socialpromoapp.activities.LoginActivity;
 import com.example.socialpromoapp.databinding.FragmentCadastroBinding;
 import com.example.socialpromoapp.models.UsuarioModel;
 import com.example.socialpromoapp.models.utils.MaskEditUtil;

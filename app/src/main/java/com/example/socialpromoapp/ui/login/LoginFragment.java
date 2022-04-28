@@ -17,19 +17,11 @@ import androidx.navigation.Navigation;
 
 import com.example.socialpromoapp.MainActivity;
 import com.example.socialpromoapp.R;
-import com.example.socialpromoapp.activities.LoginActivity;
-import com.example.socialpromoapp.activities.RegisterActivity;
-import com.example.socialpromoapp.databinding.FragmentCadastroBinding;
 import com.example.socialpromoapp.databinding.FragmentLoginBinding;
 import com.example.socialpromoapp.models.UsuarioModel;
-import com.example.socialpromoapp.models.utils.MaskEditUtil;
 import com.example.socialpromoapp.repositories.login.LoginRepository;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class LoginFragment extends Fragment {
 

@@ -54,7 +54,7 @@ public class SairModal extends Dialog implements
         switch (v.getId()) {
             case R.id.btnSair:
                 mAuth.signOut();
-                c.finish();
+                d.dismiss();
                 break;
             case R.id.btnCancelar:
                 break;
