@@ -16,6 +16,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -28,11 +29,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.socialpromoapp.R;
 import com.example.socialpromoapp.databinding.FragmentPostagemBinding;
 import com.example.socialpromoapp.models.CategoriaModel;
 import com.example.socialpromoapp.models.EstabelecimentoModel;
+import com.example.socialpromoapp.models.PostagemModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -51,11 +55,12 @@ public class PostagemFragment extends Fragment {
     AutoCompleteTextView editTextEstabelecimentos;
     AutoCompleteTextView editTextCategorias;
     TextView tvLoginHere;
-    Button btnRegister;
+    Button btnPostar;
     FirebaseAuth mAuth;
     PostagemViewModel cadastroViewModel;
     ImageView imagePostagem;
     Button btnTirarFoto;
+    private NavController navController;
 
     private void loadComboEstabelecimentos(List<String> listaEstabelecimentos){
         ArrayAdapter<String> adapterEstabelecimentos =
@@ -109,6 +114,20 @@ public class PostagemFragment extends Fragment {
 
     }
 
+
+    Runnable funcSucesso = new Runnable() {
+        public void run() {
+            Toast.makeText(getActivity(), "Usuário cadastrado com sucesso", Toast.LENGTH_SHORT).show();
+            navController.navigate(R.id.nav_feed);
+        }
+    };
+
+    Runnable funcFalha = new Runnable() {
+        public void run() {
+            Toast.makeText(getActivity(), "Falha ao cadastrar o usuário", Toast.LENGTH_SHORT).show();
+        }
+    };
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -116,7 +135,7 @@ public class PostagemFragment extends Fragment {
         if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.CAMERA}, 0);
         }
-
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_feed);
         cadastroViewModel =
                 new ViewModelProvider(this).get(PostagemViewModel.class);
 
@@ -147,8 +166,17 @@ public class PostagemFragment extends Fragment {
             }
         });
 
-
         loadImagePostagem();
+
+        btnPostar = binding.btnPostar;
+        btnPostar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PostagemModel postagemModel = new PostagemModel();
+                //TODO
+            }
+        });
+
         return root;
     }
 

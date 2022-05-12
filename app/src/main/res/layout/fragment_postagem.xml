@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cadastrar Postagem"
+            android:text="Postagem"
             android:textSize="30sp"
             android:textStyle="bold"
             android:textColor="@color/teal_700"
@@ -121,10 +121,10 @@
             android:text="Adicionar Foto"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnRegister"
+            android:id="@+id/btnPostar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cadastrar" />
+            android:text="Postar" />
 
     </LinearLayout>
 
