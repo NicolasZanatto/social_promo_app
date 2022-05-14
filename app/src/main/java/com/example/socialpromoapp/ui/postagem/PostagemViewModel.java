@@ -21,7 +21,8 @@ public class PostagemViewModel extends ViewModel {
     private CategoriaRepository categoriaRepository;
     private final MutableLiveData<List<EstabelecimentoModel>> estabelecimentos;
     private final MutableLiveData<List<CategoriaModel>> categorias;
-
+    private String categoriaSelecionada;
+    private String estabelecimentoSelecionado;
 
     public PostagemViewModel() {
         this.estabelecimentoRepository = new EstabelecimentoRepository();
@@ -41,14 +42,35 @@ public class PostagemViewModel extends ViewModel {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public Integer getCategoriaId(String descricao){
+    public Integer getCategoriaId(){
         List<CategoriaModel> categorias = this.categorias.getValue();
+        if(categorias == null) return 0;
 
         CategoriaModel categoriaModel = categorias.stream()
-        .filter((categoria) -> categoria.getDescricao().equals(descricao))
+        .filter((categoria) -> categoria.getDescricao().equals(this.categoriaSelecionada))
         .findFirst()
         .orElse(new CategoriaModel());
 
         return categoriaModel.getId();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public Integer getEstabelecimentoId(){
+        List<EstabelecimentoModel> estabelecimentos = this.estabelecimentos.getValue();
+        if(estabelecimentos == null) return 0;
+
+        EstabelecimentoModel estabelecimentoModel = estabelecimentos.stream()
+                .filter((estabelecimento) -> estabelecimento.getDescricao().equals(this.estabelecimentoSelecionado))
+                .findFirst()
+                .orElse(new EstabelecimentoModel());
+
+        return estabelecimentoModel.getId();
+    }
+
+    public void setEstabelecimentoSelecionado(String descricao){
+        this.estabelecimentoSelecionado = descricao;
+    }
+    public void setCategoriaSelecionada(String descricao){
+        this.categoriaSelecionada = descricao;
     }
 }

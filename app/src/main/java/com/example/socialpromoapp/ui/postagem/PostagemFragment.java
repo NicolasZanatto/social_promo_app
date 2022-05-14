@@ -5,9 +5,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,20 +121,6 @@ public class PostagemFragment extends Fragment {
 
     }
 
-
-    Runnable funcSucesso = new Runnable() {
-        public void run() {
-            Toast.makeText(getActivity(), "Usuário cadastrado com sucesso", Toast.LENGTH_SHORT).show();
-            navController.navigate(R.id.nav_feed);
-        }
-    };
-
-    Runnable funcFalha = new Runnable() {
-        public void run() {
-            Toast.makeText(getActivity(), "Falha ao cadastrar o usuário", Toast.LENGTH_SHORT).show();
-        }
-    };
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -177,18 +165,53 @@ public class PostagemFragment extends Fragment {
         btnPostar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                double preco;
+                String strPreco = binding.etPreco.getText().toString();
+                if(TextUtils.isEmpty(strPreco)){
+                    preco = 0;
+                }
+                else {
+                    preco = Double.parseDouble(strPreco);
+                }
+
+                BitmapDrawable bitmapDrawable;
+                if(imagePostagem.getDrawable() == null){
+                    Toast.makeText(getActivity(), "É necessário adicionar uma imagem a postagem", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 PostagemModel postagemModel = new PostagemModel(
                         UUID.randomUUID().toString(),
                         binding.etTitulo.toString(),
-                        Long.valueOf(binding.etPreco.toString()),
+                        preco,
                         binding.etDescricao.toString(),
-                        cadastroViewModel.getCategoriaId(editTextEstabelecimentos.),
+                        cadastroViewModel.getCategoriaId(),
+                        cadastroViewModel.getEstabelecimentoId(),
+                        ((BitmapDrawable)imagePostagem.getDrawable()).getBitmap()
                 );
+
+                if(postagemModel.Valid(binding.etTitulo, binding.etPreco, binding.categorias, binding.estabelecimentos)){
+                    postagemModel.CadastrarPostagem(funcSucesso, funcFalha);
+                }
+
             }
         });
 
         return root;
     }
+
+    Runnable funcSucesso = new Runnable() {
+        public void run() {
+            Toast.makeText(getActivity(), "Postagem cadastrada com sucesso", Toast.LENGTH_SHORT).show();
+            navController.navigate(R.id.nav_feed);
+        }
+    };
+
+    Runnable funcFalha = new Runnable() {
+        public void run() {
+            Toast.makeText(getActivity(), "Falha ao cadastrar a postagem", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @Override
     public void onDestroyView() {

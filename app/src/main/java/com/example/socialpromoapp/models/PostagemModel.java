@@ -1,9 +1,12 @@
 package com.example.socialpromoapp.models;
 
 import android.graphics.Bitmap;
+import android.text.TextUtils;
+import android.widget.AutoCompleteTextView;
 
 import com.example.socialpromoapp.repositories.login.UsuarioRepository;
 import com.example.socialpromoapp.repositories.postagem.PostagemRepository;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 
@@ -11,21 +14,22 @@ import com.google.firebase.database.IgnoreExtraProperties;
 public class PostagemModel {
     public String id;
     public String titulo;
-    public Long preco;
+    public Double preco;
     public String descricao;
     public Integer idCategoria;
     public Integer idEstabelecimento;
-    public String caminhoImagem;
+    public Bitmap bitmapImagem;
 
     public PostagemModel(){}
 
-    public PostagemModel(String id, String titulo, Long preco, String descricao, Integer idCategoria, Integer idEstabelecimento) {
+    public PostagemModel(String id, String titulo, Double preco, String descricao, Integer idCategoria, Integer idEstabelecimento,Bitmap bitmapImagem) {
         this.id = id;
         this.titulo = titulo;
         this.preco = preco;
         this.descricao = descricao;
         this.idCategoria = idCategoria;
         this.idEstabelecimento = idEstabelecimento;
+        this.bitmapImagem = bitmapImagem;
     }
 
     public String getId() {
@@ -44,11 +48,11 @@ public class PostagemModel {
         this.titulo = titulo;
     }
 
-    public Long getPreco() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(Long preco) {
+    public void setPreco(Double preco) {
         this.preco = preco;
     }
 
@@ -76,16 +80,49 @@ public class PostagemModel {
         this.idEstabelecimento = idEstabelecimento;
     }
 
-    public String getCaminhoImagem() {
-        return caminhoImagem;
+    public Bitmap getBitmapImagem() {
+        return this.bitmapImagem;
     }
 
-    public void setCaminhoImagem(String caminhoImagem) {
-        this.caminhoImagem = caminhoImagem;
+    public void setCaminhoImagem(Bitmap bitmapImagem) {
+        this.bitmapImagem = bitmapImagem;
     }
 
     public void cadastrarPostagem(Bitmap imagem, final Runnable funcSucesso, final Runnable funcFalha){
         PostagemRepository postagemRepository = new PostagemRepository();
-        postagemRepository.cadastrarPostagem(this, imagem, funcSucesso, funcFalha);
+        postagemRepository.cadastrarPostagem(this, funcSucesso, funcFalha);
+    }
+
+    public boolean Valid(TextInputEditText etTitulo, TextInputEditText etPreco, AutoCompleteTextView etCategorias, AutoCompleteTextView etEstabelecimentos){
+        if (TextUtils.isEmpty(this.titulo)){
+            etTitulo.setError("Título não pode ser vazio");
+            etTitulo.requestFocus();
+            return false;
+        }
+
+        if(this.preco == 0){
+            etPreco.setError("Preço não pode ser vazio");
+            etPreco.requestFocus();
+            return false;
+        }
+
+        if(this.idCategoria == 0 || this.idCategoria < 0){
+            etCategorias.setError("Categoria não pode ser vazio");
+            etCategorias.requestFocus();
+            return false;
+        }
+
+        if(this.idEstabelecimento == 0 || this.idEstabelecimento < 0){
+            etEstabelecimentos.setError("Estabelecimento não pode ser vazio");
+            etEstabelecimentos.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
+    public void CadastrarPostagem(Runnable funcSucesso, Runnable funcFalha){
+        PostagemRepository postagemRepository = new PostagemRepository();
+        postagemRepository.cadastrarPostagem(this,funcSucesso, funcFalha);
     }
 }
