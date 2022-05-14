@@ -1,5 +1,8 @@
 package com.example.socialpromoapp.ui.postagem;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -35,5 +38,17 @@ public class PostagemViewModel extends ViewModel {
     }
     public LiveData<List<CategoriaModel>> getCategorias(){
         return this.categorias;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public Integer getCategoriaId(String descricao){
+        List<CategoriaModel> categorias = this.categorias.getValue();
+
+        CategoriaModel categoriaModel = categorias.stream()
+        .filter((categoria) -> categoria.getDescricao().equals(descricao))
+        .findFirst()
+        .orElse(new CategoriaModel());
+
+        return categoriaModel.getId();
     }
 }

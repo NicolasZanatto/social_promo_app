@@ -34,11 +34,8 @@ public class PostagemRepository {
     }
 
     public void cadastrarPostagem(PostagemModel postagemModel, Bitmap imagemBitmap, final Runnable funcSucesso, final Runnable funcFalha) {
-        UUID uuid = UUID.randomUUID();
-        postagemModel.setId(uuid.toString());
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child("postagens").child(postagemModel.getId()).setValue(postagemModel);
-
         adicionarImagemAoStorage(imagemBitmap,postagemModel.getId(), funcSucesso, funcFalha);
         funcSucesso.run();
     }

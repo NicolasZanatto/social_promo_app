@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -42,16 +43,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class PostagemFragment extends Fragment {
 
     private FragmentPostagemBinding binding;
-    TextInputEditText etRegEmail;
-    TextInputEditText etRegPassword;
-    TextInputEditText etRegDataNascimento;
-    TextInputEditText etRegCelular;
-    TextInputEditText etRegNome;
     AutoCompleteTextView editTextEstabelecimentos;
     AutoCompleteTextView editTextCategorias;
     TextView tvLoginHere;
@@ -70,6 +67,14 @@ public class PostagemFragment extends Fragment {
                         listaEstabelecimentos);
 
         editTextEstabelecimentos.setAdapter(adapterEstabelecimentos);
+
+        editTextEstabelecimentos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String value = (String)adapterView.getItemAtPosition(i);
+
+            }
+        });
     }
 
     private void loadComboCategorias(List<String> listaCategorias){
@@ -172,8 +177,13 @@ public class PostagemFragment extends Fragment {
         btnPostar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PostagemModel postagemModel = new PostagemModel();
-                //TODO
+                PostagemModel postagemModel = new PostagemModel(
+                        UUID.randomUUID().toString(),
+                        binding.etTitulo.toString(),
+                        Long.valueOf(binding.etPreco.toString()),
+                        binding.etDescricao.toString(),
+                        cadastroViewModel.getCategoriaId(editTextEstabelecimentos.),
+                );
             }
         });
 
