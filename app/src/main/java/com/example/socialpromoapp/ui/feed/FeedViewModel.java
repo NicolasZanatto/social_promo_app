@@ -1,19 +1,32 @@
 package com.example.socialpromoapp.ui.feed;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.socialpromoapp.models.PostagemModel;
+import com.example.socialpromoapp.repositories.postagem.PostagemRepository;
+
+import java.util.ArrayList;
+
 public class FeedViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    private MutableLiveData<ArrayList<PostagemModel>> postagens;
 
     public FeedViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public void init(){
+        if(postagens!= null){
+            return;
+        }
+
+        postagens = PostagemRepository.getInstance().getPostagens();
+    }
+
+    public LiveData<ArrayList<PostagemModel>> getPostagens() {
+        return postagens;
     }
 }
