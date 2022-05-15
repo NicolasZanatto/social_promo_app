@@ -74,7 +74,7 @@ public class PostagemFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String value = (String)adapterView.getItemAtPosition(i);
-
+                cadastroViewModel.setEstabelecimentoSelecionado(value);
             }
         });
     }
@@ -88,6 +88,14 @@ public class PostagemFragment extends Fragment {
 
         editTextCategorias = binding.categorias;
         editTextCategorias.setAdapter(adapterCategorias);
+
+        editTextCategorias.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String value = (String)adapterView.getItemAtPosition(i);
+                cadastroViewModel.setCategoriaSelecionada(value);
+            }
+        });
     }
 
     // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
@@ -128,6 +136,7 @@ public class PostagemFragment extends Fragment {
         if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.CAMERA}, 0);
         }
+        mAuth = FirebaseAuth.getInstance();
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_feed);
         cadastroViewModel =
                 new ViewModelProvider(this).get(PostagemViewModel.class);
@@ -174,17 +183,17 @@ public class PostagemFragment extends Fragment {
                     preco = Double.parseDouble(strPreco);
                 }
 
-                BitmapDrawable bitmapDrawable;
-                if(imagePostagem.getDrawable() == null){
+                if((BitmapDrawable)imagePostagem.getDrawable() == null){
                     Toast.makeText(getActivity(), "É necessário adicionar uma imagem a postagem", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 PostagemModel postagemModel = new PostagemModel(
                         UUID.randomUUID().toString(),
-                        binding.etTitulo.toString(),
+                        mAuth.getUid(),
+                        binding.etTitulo.getText().toString(),
                         preco,
-                        binding.etDescricao.toString(),
+                        binding.etDescricao.getText().toString(),
                         cadastroViewModel.getCategoriaId(),
                         cadastroViewModel.getEstabelecimentoId(),
                         ((BitmapDrawable)imagePostagem.getDrawable()).getBitmap()

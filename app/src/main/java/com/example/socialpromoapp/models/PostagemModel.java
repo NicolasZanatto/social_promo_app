@@ -7,23 +7,27 @@ import android.widget.AutoCompleteTextView;
 import com.example.socialpromoapp.repositories.login.UsuarioRepository;
 import com.example.socialpromoapp.repositories.postagem.PostagemRepository;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 
-@IgnoreExtraProperties
 public class PostagemModel {
     public String id;
+    public String idUsuario;
     public String titulo;
     public Double preco;
     public String descricao;
     public Integer idCategoria;
     public Integer idEstabelecimento;
+
+    @Exclude
     public Bitmap bitmapImagem;
 
     public PostagemModel(){}
 
-    public PostagemModel(String id, String titulo, Double preco, String descricao, Integer idCategoria, Integer idEstabelecimento,Bitmap bitmapImagem) {
+    public PostagemModel(String id,String idUsuario, String titulo, Double preco, String descricao, Integer idCategoria, Integer idEstabelecimento,Bitmap bitmapImagem) {
         this.id = id;
+        this.idUsuario = idUsuario;
         this.titulo = titulo;
         this.preco = preco;
         this.descricao = descricao;
@@ -38,6 +42,14 @@ public class PostagemModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getTitulo() {
@@ -80,12 +92,9 @@ public class PostagemModel {
         this.idEstabelecimento = idEstabelecimento;
     }
 
+    @Exclude
     public Bitmap getBitmapImagem() {
         return this.bitmapImagem;
-    }
-
-    public void setCaminhoImagem(Bitmap bitmapImagem) {
-        this.bitmapImagem = bitmapImagem;
     }
 
     public void cadastrarPostagem(Bitmap imagem, final Runnable funcSucesso, final Runnable funcFalha){
