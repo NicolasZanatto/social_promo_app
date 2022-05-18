@@ -195,7 +195,9 @@ public class PostagemFragment extends Fragment {
                         preco,
                         binding.etDescricao.getText().toString(),
                         cadastroViewModel.getCategoriaId(),
+                        cadastroViewModel.getCategoriaDesc(),
                         cadastroViewModel.getEstabelecimentoId(),
+                        cadastroViewModel.getEstabelecimentoDesc(),
                         ((BitmapDrawable)imagePostagem.getDrawable()).getBitmap()
                 );
 

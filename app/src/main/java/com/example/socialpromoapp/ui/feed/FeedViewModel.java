@@ -19,10 +19,6 @@ public class FeedViewModel extends ViewModel {
     }
 
     public void init(){
-        if(postagens!= null){
-            return;
-        }
-
         postagens = PostagemRepository.getInstance().getPostagens();
     }
 

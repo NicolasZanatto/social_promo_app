@@ -43,7 +43,7 @@ public class FeedFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
-        adapter = new FeedAdapter(feedViewModel.getPostagens().getValue());
+        adapter = new FeedAdapter(getContext(), feedViewModel.getPostagens().getValue());
         recyclerView.setAdapter(adapter);
 
 

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.widget.AutoCompleteTextView;
 
+import com.example.socialpromoapp.repositories.estabelecimento.EstabelecimentoRepository;
 import com.example.socialpromoapp.repositories.login.UsuarioRepository;
 import com.example.socialpromoapp.repositories.postagem.PostagemRepository;
 import com.google.android.material.textfield.TextInputEditText;
@@ -18,21 +19,26 @@ public class PostagemModel {
     public Double preco;
     public String descricao;
     public Integer idCategoria;
+    public String categoriaDesc;
     public Integer idEstabelecimento;
+    public String estabelecimentoDesc;
+    public String caminhoImagemUrl;
 
     @Exclude
     public Bitmap bitmapImagem;
 
     public PostagemModel(){}
 
-    public PostagemModel(String id,String idUsuario, String titulo, Double preco, String descricao, Integer idCategoria, Integer idEstabelecimento,Bitmap bitmapImagem) {
+    public PostagemModel(String id,String idUsuario, String titulo, Double preco, String descricao, Integer idCategoria, String categoriaDesc, Integer idEstabelecimento, String estabelecimentoDesc, Bitmap bitmapImagem) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.titulo = titulo;
         this.preco = preco;
         this.descricao = descricao;
         this.idCategoria = idCategoria;
+        this.categoriaDesc = categoriaDesc;
         this.idEstabelecimento = idEstabelecimento;
+        this.categoriaDesc = categoriaDesc;
         this.bitmapImagem = bitmapImagem;
     }
 
@@ -92,9 +98,35 @@ public class PostagemModel {
         this.idEstabelecimento = idEstabelecimento;
     }
 
+    public String getCategoriaDesc() {
+        return categoriaDesc;
+    }
+
+    public void setCategoriaDesc(String categoriaDesc) {
+        this.categoriaDesc = categoriaDesc;
+    }
+
+    public void setEstabelecimentoDesc(String estabelecimentoDesc) {
+        this.estabelecimentoDesc = estabelecimentoDesc;
+    }
+
+    public String getEstabelecimentoDesc(){
+        return this.estabelecimentoDesc;
+    }
+
     @Exclude
     public Bitmap getBitmapImagem() {
         return this.bitmapImagem;
+    }
+
+    public void setBitmapImagem(Bitmap bitmap){ this.bitmapImagem = bitmap;}
+
+    public void setCaminhoImagemUrl(String url){
+        this.caminhoImagemUrl = url;
+    }
+
+    public String getCaminhoImagemUrl(){
+        return this.caminhoImagemUrl;
     }
 
     public void cadastrarPostagem(Bitmap imagem, final Runnable funcSucesso, final Runnable funcFalha){

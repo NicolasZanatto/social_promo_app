@@ -56,4 +56,25 @@ public class EstabelecimentoRepository {
             }
         });
     }
+
+    public void getDescricao(Integer id, StringBuilder descricaoBuilder){
+        // Attach a listener to read the data at our posts reference
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()){
+                    EstabelecimentoModel estabelecimentoModel = data.getValue(EstabelecimentoModel.class);
+
+                    if(estabelecimentoModel.getId() == id){
+                        descricaoBuilder.append(estabelecimentoModel.getDescricao());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
 }

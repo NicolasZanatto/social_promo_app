@@ -55,6 +55,19 @@ public class PostagemViewModel extends ViewModel {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
+    public String getCategoriaDesc(){
+        List<CategoriaModel> categorias = this.categorias.getValue();
+        if(categorias == null) return "";
+
+        CategoriaModel categoriaModel = categorias.stream()
+                .filter((categoria) -> categoria.getDescricao().equals(this.categoriaSelecionada))
+                .findFirst()
+                .orElse(new CategoriaModel());
+
+        return categoriaModel.getDescricao();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public Integer getEstabelecimentoId(){
         List<EstabelecimentoModel> estabelecimentos = this.estabelecimentos.getValue();
         if(estabelecimentos == null) return 0;
@@ -65,6 +78,19 @@ public class PostagemViewModel extends ViewModel {
                 .orElse(new EstabelecimentoModel());
 
         return estabelecimentoModel.getId();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public String getEstabelecimentoDesc(){
+        List<EstabelecimentoModel> estabelecimentos = this.estabelecimentos.getValue();
+        if(estabelecimentos == null) return "";
+
+        EstabelecimentoModel estabelecimentoModel = estabelecimentos.stream()
+                .filter((estabelecimento) -> estabelecimento.getDescricao().equals(this.estabelecimentoSelecionado))
+                .findFirst()
+                .orElse(new EstabelecimentoModel());
+
+        return estabelecimentoModel.getDescricao();
     }
 
     public void setEstabelecimentoSelecionado(String descricao){
