@@ -1,32 +1,29 @@
-package com.example.socialpromoapp.ui.deslogar;
+package com.example.socialpromoapp.ui.filtrar;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.socialpromoapp.databinding.FragmentDeslogarBinding;
+import com.example.socialpromoapp.databinding.FragmentFiltroBinding;
 import com.example.socialpromoapp.ui.modais.DeslogarModal;
 
-public class DeslogarFragment extends Fragment {
+public class FiltrarFragment extends Fragment {
 
-    private FragmentDeslogarBinding binding;
+    private FragmentFiltroBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DeslogarViewModel deslogarViewModel =
-                new ViewModelProvider(this).get(DeslogarViewModel.class);
+        FiltrarViewModel deslogarViewModel =
+                new ViewModelProvider(this).get(FiltrarViewModel.class);
 
-        binding = FragmentDeslogarBinding.inflate(inflater, container, false);
+        binding = FragmentFiltroBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        DeslogarModal deslogarModal = new DeslogarModal(getActivity());
-        deslogarModal.show();
         return root;
     }
 

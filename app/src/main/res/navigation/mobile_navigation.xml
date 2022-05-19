@@ -38,5 +38,10 @@
         android:name="com.example.socialpromoapp.ui.sobre.SobreFragment"
         android:label="Sobre"
         tools:layout="@layout/fragment_sobre" />
+    <fragment
+        android:id="@+id/nav_fitrar"
+        android:name="com.example.socialpromoapp.ui.filtrar.FiltrarFragment"
+        android:label="Filtrar"
+        tools:layout="@layout/fragment_filtro" />
 
 </navigation>

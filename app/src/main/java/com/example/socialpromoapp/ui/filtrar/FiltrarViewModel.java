@@ -1,14 +1,14 @@
-package com.example.socialpromoapp.ui.deslogar;
+package com.example.socialpromoapp.ui.filtrar;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class DeslogarViewModel extends ViewModel {
+public class FiltrarViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public DeslogarViewModel() {
+    public FiltrarViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is slideshow fragment");
     }
