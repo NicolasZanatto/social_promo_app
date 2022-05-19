@@ -51,7 +51,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         holder.itemView.setTag(postagemModel);
         holder.txtTitulo.setText(postagemModel.getTitulo());
         holder.txtEstabelecimento.setText(postagemModel.getEstabelecimentoDesc());
-        holder.txtPreco.setText(postagemModel.getPreco().toString());
+        holder.txtCategoria.setText(postagemModel.getCategoriaDesc());
+        String preco = postagemModel.getPreco().toString().replace('.',',');
+        holder.txtPreco.setText("R$ " + preco);
 
         Glide.with(this.context).load(postagemModel.getCaminhoImagemUrl()).into(holder.imagem);
     }
@@ -76,12 +78,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         private MaterialTextView txtTitulo;
         private MaterialTextView txtPreco;
         private MaterialTextView txtEstabelecimento;
+        private MaterialTextView txtCategoria;
         private ImageView imagem;
         public ViewHolder(@NonNull View viewItem){
             super(viewItem);
             txtTitulo = viewItem.findViewById(R.id.txtTitulo);
             txtPreco = viewItem.findViewById(R.id.txtPreco);
             txtEstabelecimento = viewItem.findViewById(R.id.txtEstabelecimento);
+            txtCategoria = viewItem.findViewById(R.id.txtCategoria);
             imagem = viewItem.findViewById(R.id.imgPostagem);
         }
     }

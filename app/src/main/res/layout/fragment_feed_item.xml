@@ -7,53 +7,67 @@
     android:orientation="vertical"
     tools:context=".ui.feed.FeedFragment">
 
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imgPostagem"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_margin="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
-        app:srcCompat="@mipmap/no_image_icon_foreground" />
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <com.google.android.material.textview.MaterialTextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Title"
-            android:gravity="center"
-            android:textSize="20dp"
-            android:id="@+id/txtTitulo">
+            android:orientation="vertical">
 
-        </com.google.android.material.textview.MaterialTextView>
+            <!-- Media -->
+            <ImageView
+                android:id="@+id/imgPostagem"
+                android:layout_width="match_parent"
+                android:layout_height="194dp"
+                android:contentDescription="Descrição da Imagem"
+                android:scaleType="centerCrop"
+                app:srcCompat="@mipmap/no_image_icon_foreground" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Title"
-            android:gravity="center"
-            android:textSize="30dp"
-            android:id="@+id/txtPreco">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-        </com.google.android.material.textview.MaterialTextView>
+                <!-- Title, secondary and supporting text -->
+                <TextView
+                    android:id="@+id/txtTitulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Title"
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Title"
-            android:gravity="center"
-            android:textSize="15dp"
-            android:id="@+id/txtEstabelecimento">
+                <TextView
+                    android:id="@+id/txtPreco"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Preço"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary" />
 
-        </com.google.android.material.textview.MaterialTextView>
+                <TextView
+                    android:id="@+id/txtEstabelecimento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Estabelecimento"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary" />
 
-    </LinearLayout>
-
+                <TextView
+                    android:id="@+id/txtCategoria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Categoria"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

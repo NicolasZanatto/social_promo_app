@@ -21,6 +21,15 @@ public class PostagemModel {
     public Integer idCategoria;
     public String categoriaDesc;
     public Integer idEstabelecimento;
+
+    public String getEstabelecimentoDesc() {
+        return estabelecimentoDesc;
+    }
+
+    public void setEstabelecimentoDesc(String estabelecimentoDesc) {
+        this.estabelecimentoDesc = estabelecimentoDesc;
+    }
+
     public String estabelecimentoDesc;
     public String caminhoImagemUrl;
 
@@ -38,7 +47,7 @@ public class PostagemModel {
         this.idCategoria = idCategoria;
         this.categoriaDesc = categoriaDesc;
         this.idEstabelecimento = idEstabelecimento;
-        this.categoriaDesc = categoriaDesc;
+        this.estabelecimentoDesc = estabelecimentoDesc;
         this.bitmapImagem = bitmapImagem;
     }
 
@@ -104,14 +113,6 @@ public class PostagemModel {
 
     public void setCategoriaDesc(String categoriaDesc) {
         this.categoriaDesc = categoriaDesc;
-    }
-
-    public void setEstabelecimentoDesc(String estabelecimentoDesc) {
-        this.estabelecimentoDesc = estabelecimentoDesc;
-    }
-
-    public String getEstabelecimentoDesc(){
-        return this.estabelecimentoDesc;
     }
 
     @Exclude
