@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.socialpromoapp.models.PostagemModel;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -34,6 +35,7 @@ public class PostagemRepository {
     static PostagemRepository instance;
     private ArrayList<PostagemModel> postagensModels = new ArrayList<>();
     private MutableLiveData<ArrayList<PostagemModel>> postagens = new MutableLiveData<>();
+    private MutableLiveData<PostagemModel> postagemId = new MutableLiveData<>();
 
     public PostagemRepository() {
         mAuth = FirebaseAuth.getInstance();
@@ -95,6 +97,24 @@ public class PostagemRepository {
         loadPostagens();
         postagens.setValue(postagensModels);
         return postagens;
+    }
+
+    public MutableLiveData<PostagemModel> getPostagemById(String id){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("postagens");
+
+        databaseReference.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    postagemId.setValue(task.getResult().getValue(PostagemModel.class));
+                }
+            }
+        });
+
+        return postagemId;
     }
 
     private void loadPostagens(){

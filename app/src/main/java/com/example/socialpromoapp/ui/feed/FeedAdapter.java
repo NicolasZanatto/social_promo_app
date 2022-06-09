@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -29,9 +31,12 @@ import java.util.ArrayList;
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     private ArrayList<PostagemModel> postagens;
     private Context context;
-    public FeedAdapter(Context context, ArrayList<PostagemModel> postagens) {
+    private NavController navController;
+
+    public FeedAdapter(Context context, ArrayList<PostagemModel> postagens, NavController navController) {
         this.postagens = postagens;
         this.context = context;
+        this.navController = navController;
         setHasStableIds(true);
     }
 
@@ -56,6 +61,18 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         holder.txtPreco.setText("R$ " + preco);
 
         Glide.with(this.context).load(postagemModel.getCaminhoImagemUrl()).into(holder.imagem);
+        SetOnClickImage(holder.imagem, postagemModel);
+    }
+
+    private void SetOnClickImage(ImageView imageView,PostagemModel postagemModel){
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("id",postagemModel.getId());
+                navController.navigate(R.id.nav_visualizar_post, bundle);
+            }
+        });
     }
 
     @Override

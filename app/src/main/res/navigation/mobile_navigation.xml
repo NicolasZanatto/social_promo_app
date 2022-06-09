@@ -44,4 +44,11 @@
         android:label="Filtrar"
         tools:layout="@layout/fragment_filtro" />
 
+    <fragment
+        android:id="@+id/nav_visualizar_post"
+        android:name="com.example.socialpromoapp.ui.postagem.visualizar.VisualizarPostagemFragment"
+        android:label="Post"
+        tools:layout="@layout/fragment_visualizar_postagem" >
+    </fragment>
+
 </navigation>
