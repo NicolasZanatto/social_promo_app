@@ -56,6 +56,7 @@ public class EstabelecimentoRepository {
             }
         });
     }
+    
 
     public void getDescricao(Integer id, StringBuilder descricaoBuilder){
         // Attach a listener to read the data at our posts reference
