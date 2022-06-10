@@ -20,15 +20,24 @@ import java.util.List;
 public class VisualizarPostagemViewModel extends ViewModel {
 
     private MutableLiveData<PostagemModel> postagem;
+    private MutableLiveData<EstabelecimentoModel> estabelecimentoId;
+
     public VisualizarPostagemViewModel() {
     }
 
     public void init(String id){
         postagem = PostagemRepository.getInstance().getPostagemById(id);
     }
+    public void initEstabelecimento(String id){
+        estabelecimentoId = EstabelecimentoRepository.getInstance().getEstabelecimentoById(id);
+    }
 
     public LiveData<PostagemModel> getPostagem() {
         return postagem;
+    }
+
+    public LiveData<EstabelecimentoModel> getEstabelecimento(){
+        return estabelecimentoId;
     }
 
 }

@@ -6,9 +6,22 @@ import com.google.firebase.database.IgnoreExtraProperties;
 public class EstabelecimentoModel {
     public Integer id;
     public String descricao;
-
+    public String latitude;
+    public String longitude;
     public EstabelecimentoModel() {}
 
+    public String getLongitude() {
+        return longitude;
+    }
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+    public String getLatitude() {
+        return latitude;
+    }
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
     public Integer getId() {
         return id;
     }

@@ -14,6 +14,17 @@
         android:orientation="vertical"
         android:layout_gravity="top">
 
+
+        <ImageView
+            android:id="@+id/imgPostagem"
+            android:layout_width="match_parent"
+            android:layout_height="324dp"
+            android:contentDescription="Descrição da Imagem"
+            android:scaleType="centerCrop"
+            app:srcCompat="@mipmap/no_image_icon_foreground" />
+
+
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,17 +35,6 @@
             android:textColor="@color/black"
             android:gravity="center_horizontal"
             android:layout_marginVertical="16dp"/>
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imgPostagem"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:layout_margin="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
-            app:srcCompat="@mipmap/no_image_icon_foreground" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -115,5 +115,4 @@
                 android:id="@+id/map_fragment"
                 android:name="com.google.android.gms.maps.SupportMapFragment" />
     </LinearLayout>
-
 </ScrollView>

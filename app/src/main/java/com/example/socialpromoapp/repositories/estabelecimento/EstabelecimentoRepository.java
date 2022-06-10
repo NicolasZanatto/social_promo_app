@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.socialpromoapp.models.EstabelecimentoModel;
+import com.example.socialpromoapp.models.PostagemModel;
+import com.example.socialpromoapp.repositories.postagem.PostagemRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,10 +24,20 @@ import java.util.Comparator;
 import java.util.List;
 
 public class EstabelecimentoRepository {
+    static EstabelecimentoRepository instance;
     private DatabaseReference databaseReference;
+    private MutableLiveData<EstabelecimentoModel> estabelecimentoId = new MutableLiveData<>();
 
     public EstabelecimentoRepository(){
         databaseReference = FirebaseDatabase.getInstance().getReference("estabelecimentos");
+    }
+
+    public static EstabelecimentoRepository getInstance(){
+
+        if(instance == null){
+            instance = new EstabelecimentoRepository();
+        }
+        return instance;
     }
 
     public void getAll(MutableLiveData<List<EstabelecimentoModel>> listaEstabelecimentos){
@@ -56,7 +68,22 @@ public class EstabelecimentoRepository {
             }
         });
     }
-    
+
+    public MutableLiveData<EstabelecimentoModel> getEstabelecimentoById(String id){
+        databaseReference.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    estabelecimentoId.setValue(task.getResult().getValue(EstabelecimentoModel.class));
+                }
+            }
+        });
+
+        return estabelecimentoId;
+    }
 
     public void getDescricao(Integer id, StringBuilder descricaoBuilder){
         // Attach a listener to read the data at our posts reference

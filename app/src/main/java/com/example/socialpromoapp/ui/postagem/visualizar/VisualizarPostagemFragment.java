@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
 import com.example.socialpromoapp.R;
 import com.example.socialpromoapp.databinding.FragmentVisualizarPostagemBinding;
+import com.example.socialpromoapp.models.EstabelecimentoModel;
 import com.example.socialpromoapp.models.PostagemModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -34,10 +35,6 @@ public class VisualizarPostagemFragment extends Fragment implements OnMapReadyCa
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager()
-                .findFragmentById(R.id.map_fragment);
 
         cadastroViewModel =
                 new ViewModelProvider(this).get(VisualizarPostagemViewModel.class);
@@ -59,10 +56,36 @@ public class VisualizarPostagemFragment extends Fragment implements OnMapReadyCa
                 txtEstabelecimento.setText(postagemModel.getEstabelecimentoDesc());
                 txtCategoria.setText(postagemModel.getCategoriaDesc());
                 Glide.with(getContext()).load(postagemModel.getCaminhoImagemUrl()).into(binding.imgPostagem);
+                cadastroViewModel.initEstabelecimento(postagemModel.getIdEstabelecimento().toString());
             }
         });
 
-        SupportMapFragment supportMapFragment = (SupportMapFragment)getActivity().getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment supportMapFragment=(SupportMapFragment)
+                getChildFragmentManager().findFragmentById(R.id.map_fragment);
+
+        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(@NonNull GoogleMap googleMap) {
+                cadastroViewModel.getEstabelecimento().observe(getViewLifecycleOwner(), new Observer<EstabelecimentoModel>() {
+                    @Override
+                    public void onChanged(EstabelecimentoModel estabelecimentoModel) {
+                        if (estabelecimentoModel != null) {
+                            // Add a marker in Sydney and move the camera
+                            Double lat = Double.parseDouble(estabelecimentoModel.getLatitude().trim());
+                            Double lng = Double.parseDouble(estabelecimentoModel.getLongitude().trim());
+
+                            LatLng estabLatLng = new LatLng(lat, lng);
+                            googleMap.addMarker(new MarkerOptions()
+                                    .position(estabLatLng)
+                                    .title("Marker in Sydney"));
+                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(estabLatLng,15));
+                        }
+                    }
+                });
+            }
+        });
+
         return root;
     }
 
@@ -75,12 +98,5 @@ public class VisualizarPostagemFragment extends Fragment implements OnMapReadyCa
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions()
-                .position(sydney)
-                .title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }
