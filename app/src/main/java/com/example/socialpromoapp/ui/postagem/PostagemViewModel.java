@@ -9,8 +9,10 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.socialpromoapp.models.CategoriaModel;
 import com.example.socialpromoapp.models.EstabelecimentoModel;
+import com.example.socialpromoapp.models.PostagemModel;
 import com.example.socialpromoapp.repositories.categoria.CategoriaRepository;
 import com.example.socialpromoapp.repositories.estabelecimento.EstabelecimentoRepository;
+import com.example.socialpromoapp.repositories.postagem.PostagemRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ public class PostagemViewModel extends ViewModel {
     private final MutableLiveData<List<CategoriaModel>> categorias;
     private String categoriaSelecionada;
     private String estabelecimentoSelecionado;
+    private MutableLiveData<PostagemModel> postagemEdicao;
 
     public PostagemViewModel() {
         this.estabelecimentoRepository = new EstabelecimentoRepository();
@@ -42,12 +45,12 @@ public class PostagemViewModel extends ViewModel {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public Integer getCategoriaId(){
+    public Integer getCategoriaId(String categoriaSelecionada){
         List<CategoriaModel> categorias = this.categorias.getValue();
         if(categorias == null) return 0;
 
         CategoriaModel categoriaModel = categorias.stream()
-        .filter((categoria) -> categoria.getDescricao().equals(this.categoriaSelecionada))
+        .filter((categoria) -> categoria.getDescricao().equals(categoriaSelecionada))
         .findFirst()
         .orElse(new CategoriaModel());
 
@@ -68,12 +71,12 @@ public class PostagemViewModel extends ViewModel {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public Integer getEstabelecimentoId(){
+    public Integer getEstabelecimentoId(String estabelecimentoSelecionado){
         List<EstabelecimentoModel> estabelecimentos = this.estabelecimentos.getValue();
         if(estabelecimentos == null) return 0;
 
         EstabelecimentoModel estabelecimentoModel = estabelecimentos.stream()
-                .filter((estabelecimento) -> estabelecimento.getDescricao().equals(this.estabelecimentoSelecionado))
+                .filter((estabelecimento) -> estabelecimento.getDescricao().equals(estabelecimentoSelecionado))
                 .findFirst()
                 .orElse(new EstabelecimentoModel());
 
@@ -98,5 +101,11 @@ public class PostagemViewModel extends ViewModel {
     }
     public void setCategoriaSelecionada(String descricao){
         this.categoriaSelecionada = descricao;
+    }
+    public void initEdicao(String id){
+        postagemEdicao = PostagemRepository.getInstance().getPostagemById(id);
+    }
+    public LiveData<PostagemModel> getPostagem() {
+        return postagemEdicao;
     }
 }

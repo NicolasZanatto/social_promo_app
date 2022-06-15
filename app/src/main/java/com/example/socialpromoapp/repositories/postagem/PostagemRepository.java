@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,9 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class PostagemRepository {
     private FirebaseAuth mAuth;
@@ -54,11 +58,18 @@ public class PostagemRepository {
 
 
     // Write
-    public void cadastrarPostagem(PostagemModel postagemModel, final Runnable funcSucesso, final Runnable funcFalha) {
+    public void cadastrarAtualizarPostagem(PostagemModel postagemModel, final Runnable funcSucesso, final Runnable funcFalha) {
         adicionarImagemAoStorage(postagemModel, funcSucesso, funcFalha);
     }
 
     private void adicionarImagemAoStorage(PostagemModel postagemModel,final Runnable funcSucesso, final Runnable funcFalha){
+        String uid;
+        if(TextUtils.isEmpty(postagemModel.getId())){
+            uid = postagemModel.getId();
+        }
+        else{
+            uid = UUID.randomUUID().toString();
+        }
         // Create a reference to 'images/mountains.jpg'
         StorageReference postagemRef = storageRef.child("imagens"+ "/" + postagemModel.getId() + ".jpg");
 
@@ -83,13 +94,36 @@ public class PostagemRepository {
                     public void onSuccess(Uri uri) {
                         String imageUrl = uri.toString();
                         postagemModel.setCaminhoImagemUrl(imageUrl);
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-                        reference.child("postagens").child(postagemModel.getId()).setValue(postagemModel);
+                        if(TextUtils.isEmpty(postagemModel.getId())){
+                            cadastrarPostagem(postagemModel, uid);
+                        }
+                        else{
+                            atualizarPostagem(postagemModel);
+                        }
+
                     }
                 });
                 funcSucesso.run();
             }
         });
+    }
+
+    private void cadastrarPostagem(PostagemModel postagemModel, String uid){
+        postagemModel.setId(uid);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        reference.child("postagens").child(postagemModel.getId()).setValue(postagemModel);
+    }
+    private void atualizarPostagem(PostagemModel postagemModel) {
+        // Create new post at /user-posts/$userid/$postid and at
+        // /posts/$postid simultaneously
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        reference.child("postagens").child(postagemModel.getId()).setValue(postagemModel);
+        String key = reference.child("postagens").push().getKey();
+        Map<String, Object> postValues = postagemModel.toMap();
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/" + postagemModel.getId() + "/" + key, postValues);
+
+        reference.updateChildren(childUpdates);
     }
 
     //Read

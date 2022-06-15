@@ -26,7 +26,6 @@ public class FeedFragment extends Fragment {
     private FragmentFeedBinding binding;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
     private FeedViewModel feedViewModel;
     private NavController navController;
 

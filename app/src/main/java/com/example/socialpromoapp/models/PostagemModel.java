@@ -11,6 +11,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class PostagemModel {
     public String id;
@@ -38,7 +41,7 @@ public class PostagemModel {
 
     public PostagemModel(){}
 
-    public PostagemModel(String id,String idUsuario, String titulo, Double preco, String descricao, Integer idCategoria, String categoriaDesc, Integer idEstabelecimento, String estabelecimentoDesc, Bitmap bitmapImagem) {
+    public PostagemModel(String id, String idUsuario, String titulo, Double preco, String descricao, Integer idCategoria, String categoriaDesc, Integer idEstabelecimento, String estabelecimentoDesc, Bitmap bitmapImagem) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.titulo = titulo;
@@ -130,11 +133,6 @@ public class PostagemModel {
         return this.caminhoImagemUrl;
     }
 
-    public void cadastrarPostagem(Bitmap imagem, final Runnable funcSucesso, final Runnable funcFalha){
-        PostagemRepository postagemRepository = new PostagemRepository();
-        postagemRepository.cadastrarPostagem(this, funcSucesso, funcFalha);
-    }
-
     public boolean Valid(TextInputEditText etTitulo, TextInputEditText etPreco, AutoCompleteTextView etCategorias, AutoCompleteTextView etEstabelecimentos){
         if (TextUtils.isEmpty(this.titulo)){
             etTitulo.setError("Título não pode ser vazio");
@@ -163,8 +161,25 @@ public class PostagemModel {
         return true;
     }
 
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("id", id);
+        result.put("caminhoImagemUrl", caminhoImagemUrl);
+        result.put("categoriaDesc", categoriaDesc);
+        result.put("descricao", descricao);
+        result.put("estabelecimentoDesc", estabelecimentoDesc);
+        result.put("idCategoria", idCategoria);
+        result.put("idEstabelecimento", idEstabelecimento);
+        result.put("idUsuario",idUsuario);
+        result.put("preco",preco);
+        result.put("titulo",titulo);
+
+        return result;
+    }
+
     public void CadastrarPostagem(Runnable funcSucesso, Runnable funcFalha){
         PostagemRepository postagemRepository = new PostagemRepository();
-        postagemRepository.cadastrarPostagem(this,funcSucesso, funcFalha);
+        postagemRepository.cadastrarAtualizarPostagem(this,funcSucesso, funcFalha);
     }
 }

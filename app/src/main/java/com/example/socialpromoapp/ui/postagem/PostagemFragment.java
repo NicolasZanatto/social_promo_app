@@ -35,11 +35,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.bumptech.glide.Glide;
 import com.example.socialpromoapp.R;
 import com.example.socialpromoapp.databinding.FragmentPostagemBinding;
 import com.example.socialpromoapp.models.CategoriaModel;
 import com.example.socialpromoapp.models.EstabelecimentoModel;
 import com.example.socialpromoapp.models.PostagemModel;
+import com.example.socialpromoapp.ui.shared.SharedFragment;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -48,18 +50,17 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class PostagemFragment extends Fragment {
+public class PostagemFragment extends SharedFragment {
 
     private FragmentPostagemBinding binding;
     AutoCompleteTextView editTextEstabelecimentos;
     AutoCompleteTextView editTextCategorias;
     TextView tvLoginHere;
     Button btnPostar;
-    FirebaseAuth mAuth;
     PostagemViewModel cadastroViewModel;
     ImageView imagePostagem;
     Button btnTirarFoto;
-    private NavController navController;
+    String id;
 
     private void loadComboEstabelecimentos(List<String> listaEstabelecimentos){
         ArrayAdapter<String> adapterEstabelecimentos =
@@ -130,19 +131,36 @@ public class PostagemFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
+        super.init(getActivity());
         if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.CAMERA}, 0);
         }
-        mAuth = FirebaseAuth.getInstance();
-        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_feed);
         cadastroViewModel =
                 new ViewModelProvider(this).get(PostagemViewModel.class);
 
         binding = FragmentPostagemBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        if(getArguments() !=null) {
+            id = getArguments().getString("id");
+            cadastroViewModel.initEdicao(id);
+            cadastroViewModel.getPostagem().observe(getViewLifecycleOwner(), new Observer<PostagemModel>() {
+                @Override
+                public void onChanged(PostagemModel postagemModel) {
+                    binding.etTitulo.setText(postagemModel.getTitulo());
+                    String preco = postagemModel.getPreco().toString().replace('.',',');
+                    binding.etPreco.setText("R$ " + preco);
+                    binding.etDescricao.setText(postagemModel.getTitulo());
+                    binding.estabelecimentos.setText(postagemModel.getEstabelecimentoDesc());
+                    binding.categorias.setText(postagemModel.getCategoriaDesc());
+                    Glide.with(getContext()).load(postagemModel.getCaminhoImagemUrl()).into(binding.imgPostagem);
+                }
+            });
+        }
+
 
         editTextEstabelecimentos = binding.estabelecimentos;
         List<String> listaEstabelecimentos = new ArrayList<>();
@@ -175,12 +193,12 @@ public class PostagemFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 double preco;
-                String strPreco = binding.etPreco.getText().toString();
+                String strPreco = binding.etPreco.getText().toString().replace("R$","").replace(",",".");
                 if(TextUtils.isEmpty(strPreco)){
                     preco = 0;
                 }
                 else {
-                    preco = Double.parseDouble(strPreco);
+                    preco = Double.parseDouble(strPreco.trim());
                 }
 
                 if((BitmapDrawable)imagePostagem.getDrawable() == null){
@@ -189,19 +207,20 @@ public class PostagemFragment extends Fragment {
                 }
 
                 PostagemModel postagemModel = new PostagemModel(
-                        UUID.randomUUID().toString(),
+                        id,
                         mAuth.getUid(),
                         binding.etTitulo.getText().toString(),
                         preco,
                         binding.etDescricao.getText().toString(),
-                        cadastroViewModel.getCategoriaId(),
-                        cadastroViewModel.getCategoriaDesc(),
-                        cadastroViewModel.getEstabelecimentoId(),
+                        cadastroViewModel.getCategoriaId(binding.categorias.getText().toString()),
+                        binding.categorias.getText().toString(),
+                        cadastroViewModel.getEstabelecimentoId(binding.estabelecimentos.getText().toString()),
                         cadastroViewModel.getEstabelecimentoDesc(),
                         ((BitmapDrawable)imagePostagem.getDrawable()).getBitmap()
                 );
 
                 if(postagemModel.Valid(binding.etTitulo, binding.etPreco, binding.categorias, binding.estabelecimentos)){
+
                     postagemModel.CadastrarPostagem(funcSucesso, funcFalha);
                 }
 

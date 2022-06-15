@@ -21,6 +21,7 @@ import com.example.socialpromoapp.R;
 import com.example.socialpromoapp.databinding.FragmentVisualizarPostagemBinding;
 import com.example.socialpromoapp.models.EstabelecimentoModel;
 import com.example.socialpromoapp.models.PostagemModel;
+import com.example.socialpromoapp.ui.shared.SharedFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,15 +29,17 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class VisualizarPostagemFragment extends Fragment implements OnMapReadyCallback {
+public class VisualizarPostagemFragment extends SharedFragment implements OnMapReadyCallback {
     private FragmentVisualizarPostagemBinding binding;
     private GoogleMap mMap;
     private String id;
     VisualizarPostagemViewModel cadastroViewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        super.init(getActivity());
         id = getArguments().getString("id");
         cadastroViewModel =
                 new ViewModelProvider(this).get(VisualizarPostagemViewModel.class);
@@ -52,7 +55,9 @@ public class VisualizarPostagemFragment extends Fragment implements OnMapReadyCa
         buttonEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Bundle bundle = new Bundle();
+                bundle.putString("id",id);
+                navController.navigate(R.id.nav_postagem, bundle);
             }
         });
 
