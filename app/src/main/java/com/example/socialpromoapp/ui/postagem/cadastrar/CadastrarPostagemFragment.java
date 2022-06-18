@@ -1,4 +1,4 @@
-package com.example.socialpromoapp.ui.postagem;
+package com.example.socialpromoapp.ui.postagem.cadastrar;
 
 import android.Manifest;
 import android.app.Activity;
@@ -29,11 +29,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
 import com.example.socialpromoapp.R;
@@ -42,22 +39,18 @@ import com.example.socialpromoapp.models.CategoriaModel;
 import com.example.socialpromoapp.models.EstabelecimentoModel;
 import com.example.socialpromoapp.models.PostagemModel;
 import com.example.socialpromoapp.ui.shared.SharedFragment;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
-public class PostagemFragment extends SharedFragment {
+public class CadastrarPostagemFragment extends SharedFragment {
 
     private FragmentPostagemBinding binding;
     AutoCompleteTextView editTextEstabelecimentos;
     AutoCompleteTextView editTextCategorias;
     TextView tvLoginHere;
     Button btnPostar;
-    PostagemViewModel cadastroViewModel;
+    CadastrarPostagemViewModel cadastroViewModel;
     ImageView imagePostagem;
     Button btnTirarFoto;
     String id;
@@ -139,7 +132,7 @@ public class PostagemFragment extends SharedFragment {
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.CAMERA}, 0);
         }
         cadastroViewModel =
-                new ViewModelProvider(this).get(PostagemViewModel.class);
+                new ViewModelProvider(this).get(CadastrarPostagemViewModel.class);
 
         binding = FragmentPostagemBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

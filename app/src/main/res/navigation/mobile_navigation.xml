@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/nav_postagem"
-        android:name="com.example.socialpromoapp.ui.postagem.PostagemFragment"
+        android:name="com.example.socialpromoapp.ui.postagem.cadastrar.CadastrarPostagemFragment"
         android:label="@string/action_cadastrar_postagem"
         tools:layout="@layout/fragment_postagem" />
     <fragment

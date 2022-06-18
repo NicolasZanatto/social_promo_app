@@ -1,4 +1,4 @@
-package com.example.socialpromoapp.ui.postagem;
+package com.example.socialpromoapp.ui.postagem.cadastrar;
 
 import android.os.Build;
 
@@ -17,7 +17,7 @@ import com.example.socialpromoapp.repositories.postagem.PostagemRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostagemViewModel extends ViewModel {
+public class CadastrarPostagemViewModel extends ViewModel {
 
     private EstabelecimentoRepository estabelecimentoRepository;
     private CategoriaRepository categoriaRepository;
@@ -27,7 +27,7 @@ public class PostagemViewModel extends ViewModel {
     private String estabelecimentoSelecionado;
     private MutableLiveData<PostagemModel> postagemEdicao;
 
-    public PostagemViewModel() {
+    public CadastrarPostagemViewModel() {
         this.estabelecimentoRepository = new EstabelecimentoRepository();
         this.categoriaRepository = new CategoriaRepository();
         this.estabelecimentos = new MutableLiveData<>();

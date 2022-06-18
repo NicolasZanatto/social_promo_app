@@ -108,7 +108,7 @@ public class PostagemRepository {
         });
     }
 
-    private void cadastrarPostagem(PostagemModel postagemModel, String uid){
+    private void cadastrarPostagem(@NonNull PostagemModel postagemModel, String uid){
         postagemModel.setId(uid);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child("postagens").child(postagemModel.getId()).setValue(postagemModel);
