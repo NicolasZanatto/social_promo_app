@@ -18,4 +18,8 @@ public class SharedFragment extends Fragment {
         this.navController = navHostFragment.getNavController();
         this.mAuth = FirebaseAuth.getInstance();
     }
+
+    public boolean acaoRealizadaPeloUsuarioLogado(String id){
+        return mAuth.getUid() != null && !mAuth.getUid().equals(id);
+    }
 }

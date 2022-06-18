@@ -215,7 +215,7 @@ public class PostagemFragment extends SharedFragment {
                         cadastroViewModel.getCategoriaId(binding.categorias.getText().toString()),
                         binding.categorias.getText().toString(),
                         cadastroViewModel.getEstabelecimentoId(binding.estabelecimentos.getText().toString()),
-                        cadastroViewModel.getEstabelecimentoDesc(),
+                        binding.estabelecimentos.getText().toString(),
                         ((BitmapDrawable)imagePostagem.getDrawable()).getBitmap()
                 );
 

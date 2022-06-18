@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
@@ -72,6 +71,13 @@ public class VisualizarPostagemFragment extends SharedFragment implements OnMapR
                 txtCategoria.setText(postagemModel.getCategoriaDesc());
                 Glide.with(getContext()).load(postagemModel.getCaminhoImagemUrl()).into(binding.imgPostagem);
                 cadastroViewModel.initEstabelecimento(postagemModel.getIdEstabelecimento().toString());
+
+                if(acaoRealizadaPeloUsuarioLogado(postagemModel.getIdUsuario()) ){
+                    buttonEditar.setVisibility(View.VISIBLE);
+                }
+                else{
+                    buttonEditar.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
