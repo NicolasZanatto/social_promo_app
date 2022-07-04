@@ -1,10 +1,15 @@
 package com.example.socialpromoapp.models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ComentarioModel {
     public String id;
     public String idUsuario;
     public String descricao;
     public String idPostagem;
+    public String data;
 
 
 
@@ -17,6 +22,7 @@ public class ComentarioModel {
         this.idUsuario = idUsuario;
         this.descricao = descricao;
         this.idPostagem = idPostagem;
+        this.data = setDataFormatada();
     }
 
     public String getId() {
@@ -48,5 +54,25 @@ public class ComentarioModel {
 
     public void setIdPostagem(String idPostagem) {
         this.idPostagem = idPostagem;
+    }
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String setDataFormatada(){
+        String pattern = "dd/MM/yyyy HH:mm";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        return simpleDateFormat.format(new Date());
+    }
+
+    public Date getDataDateFormat() throws ParseException {
+        String pattern = "dd/MM/yyyy HH:mm";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return simpleDateFormat.parse(this.data);
     }
 }

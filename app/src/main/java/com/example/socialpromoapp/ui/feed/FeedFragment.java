@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialpromoapp.R;
 import com.example.socialpromoapp.databinding.FragmentFeedBinding;
+import com.example.socialpromoapp.models.LikeModel;
 import com.example.socialpromoapp.models.PostagemModel;
 
 import java.util.ArrayList;
@@ -51,7 +52,14 @@ public class FeedFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
-        adapter = new FeedAdapter(getContext(), feedViewModel.getPostagens().getValue(), navController);
+        feedViewModel.getLikes().observe(getViewLifecycleOwner(), new Observer<ArrayList<LikeModel>>() {
+            @Override
+            public void onChanged(ArrayList<LikeModel> likeModels) {
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        adapter = new FeedAdapter(getContext(), feedViewModel.getPostagens().getValue(),feedViewModel.getLikes().getValue(), navController);
         recyclerView.setAdapter(adapter);
 
 

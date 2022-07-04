@@ -26,7 +26,6 @@
                 android:contentDescription="Descrição da Imagem"
                 android:scaleType="centerCrop"
                 app:srcCompat="@mipmap/no_image_icon_foreground" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,6 +67,20 @@
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnLike"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_baseline_like"
+                    app:iconTint="@color/grey_button" />
+            </LinearLayout>
         </LinearLayout>
+
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

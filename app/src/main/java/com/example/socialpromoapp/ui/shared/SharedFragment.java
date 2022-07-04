@@ -20,6 +20,7 @@ public class SharedFragment extends Fragment {
     }
 
     public boolean acaoRealizadaPeloUsuarioLogado(String id){
-        return mAuth.getUid() != null && !mAuth.getUid().equals(id);
+        String idUsuario = mAuth.getUid();
+        return idUsuario != null && idUsuario.equals(id);
     }
 }

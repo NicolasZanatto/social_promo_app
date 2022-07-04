@@ -64,7 +64,7 @@ public class PostagemRepository {
 
     private void adicionarImagemAoStorage(PostagemModel postagemModel,final Runnable funcSucesso, final Runnable funcFalha){
         String uid;
-        if(TextUtils.isEmpty(postagemModel.getId())){
+        if(!TextUtils.isEmpty(postagemModel.getId())){
             uid = postagemModel.getId();
         }
         else{

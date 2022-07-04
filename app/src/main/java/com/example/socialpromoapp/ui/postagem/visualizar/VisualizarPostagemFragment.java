@@ -103,9 +103,10 @@ public class VisualizarPostagemFragment extends SharedFragment implements OnMapR
                     @Override
                     public void onChanged(ArrayList<ComentarioModel> comentarioModels) {
                         adapter.notifyDataSetChanged();
+                        binding.lblComentarios.setText("Comentários("+ comentarioModels.size() + ")");
                     }
                 });
-        adapter = new ComentarioAdapter(getContext(), cadastroViewModel.getComentarios().getValue(), navController);
+        adapter = new ComentarioAdapter(getContext(), cadastroViewModel.getComentarios().getValue(), navController, getViewLifecycleOwner());
         rvComentarios.setAdapter(adapter);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.

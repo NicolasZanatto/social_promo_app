@@ -10,14 +10,46 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:layout_height="70dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/txtUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usuario"
+                android:paddingRight="10dp"
+                android:textSize="12dp"
+                android:textAppearance="?attr/textAppearanceBody2" />
+
+            <TextView
+                android:id="@+id/txtData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data"
+                android:textSize="12dp"
+                android:textColor="@color/grey_button"
+                android:textAppearance="?attr/textAppearanceBody2" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txtComentario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:text="Title"
-            android:textAppearance="?attr/textAppearanceBody2" />
+
+            android:paddingTop="30dp"
+            android:paddingLeft="8dp"
+            android:textSize="15dp"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:background="@drawable/border_bottom"
+            />
+
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

@@ -1,9 +1,12 @@
 package com.example.socialpromoapp.repositories.comentario;
 
+import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.socialpromoapp.models.CategoriaModel;
 import com.example.socialpromoapp.models.ComentarioModel;
 import com.example.socialpromoapp.models.PostagemModel;
 import com.example.socialpromoapp.repositories.postagem.PostagemRepository;
@@ -13,7 +16,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 public class ComentarioRepository {
     static ComentarioRepository instance;
@@ -38,6 +46,7 @@ public class ComentarioRepository {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("comentarios");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 comentariosModels.clear();
@@ -47,7 +56,19 @@ public class ComentarioRepository {
 
                     if(id.equals(comentarioModel.getIdPostagem()))
                         comentariosModels.add(comentarioModel);
+
                 }
+
+                comentariosModels.sort((d1,d2) -> {
+                    try {
+                        return d1.getDataDateFormat().compareTo(d2.getDataDateFormat());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    return 0;
+                });
+
+
                 comentarios.postValue(comentariosModels);
             }
 
