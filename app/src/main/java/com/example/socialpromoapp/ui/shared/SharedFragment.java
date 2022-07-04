@@ -23,4 +23,9 @@ public class SharedFragment extends Fragment {
         String idUsuario = mAuth.getUid();
         return idUsuario != null && idUsuario.equals(id);
     }
+
+    public boolean usuarioEstaLogado(){
+        String idUsuario = mAuth.getUid();
+        return idUsuario != null;
+    }
 }

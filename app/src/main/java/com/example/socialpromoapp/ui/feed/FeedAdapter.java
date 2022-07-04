@@ -77,8 +77,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         Glide.with(this.context).load(postagemModel.getCaminhoImagemUrl()).into(holder.imagem);
         SetOnClickImage(holder.imagem, postagemModel);
 
+        if(mAuth.getUid() != null)
+            holder.btnLike.setVisibility(View.VISIBLE);
+
         LikeModel likeModel = GetLikeModel(postagemModel);
-        holder.btnLike.setIconTintResource(likeModel.isReacao() ? R.color.purple_500 : R.color.grey_button);
+        holder.btnLike.setIconTintResource(likeModel.isReacao() ? R.color.red : R.color.grey_button);
         SetOnClickLikeButton(holder.btnLike, likeModel, postagemModel);
     }
 
@@ -97,7 +100,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 likeModel.setReacao(!likeModel.reacao);
-                btnLike.setIconTintResource(likeModel.isReacao() ? R.color.purple_500 : R.color.grey_button);
+                btnLike.setIconTintResource(likeModel.isReacao() ? R.color.red : R.color.grey_button);
 
                 LikeRepository.getInstance().atualizarLike(likeModel);
             }

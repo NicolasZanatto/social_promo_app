@@ -25,6 +25,7 @@ import com.example.socialpromoapp.R;
 import com.example.socialpromoapp.databinding.FragmentVisualizarPostagemBinding;
 import com.example.socialpromoapp.models.ComentarioModel;
 import com.example.socialpromoapp.models.EstabelecimentoModel;
+import com.example.socialpromoapp.models.LikeModel;
 import com.example.socialpromoapp.models.PostagemModel;
 import com.example.socialpromoapp.repositories.comentario.ComentarioRepository;
 import com.example.socialpromoapp.ui.feed.FeedAdapter;
@@ -81,7 +82,7 @@ public class VisualizarPostagemFragment extends SharedFragment implements OnMapR
                 txtTitulo.setText(postagemModel.getTitulo());
                 String preco = postagemModel.getPreco().toString().replace('.',',');
                 txtPreco.setText("R$ " + preco);
-                txtDescricao.setText(postagemModel.getTitulo());
+                txtDescricao.setText(postagemModel.getDescricao());
                 txtEstabelecimento.setText(postagemModel.getEstabelecimentoDesc());
                 txtCategoria.setText(postagemModel.getCategoriaDesc());
                 Glide.with(getContext()).load(postagemModel.getCaminhoImagemUrl()).into(binding.imgPostagem);
@@ -106,6 +107,14 @@ public class VisualizarPostagemFragment extends SharedFragment implements OnMapR
                         binding.lblComentarios.setText("Comentários("+ comentarioModels.size() + ")");
                     }
                 });
+
+        cadastroViewModel.getLikes().observe(getViewLifecycleOwner(), new Observer<ArrayList<LikeModel>>() {
+            @Override
+            public void onChanged(ArrayList<LikeModel> likeModels) {
+                binding.txtNumeroCurtidas.setText(likeModels.size() + " curtida(s)");
+            }
+        });
+
         adapter = new ComentarioAdapter(getContext(), cadastroViewModel.getComentarios().getValue(), navController, getViewLifecycleOwner());
         rvComentarios.setAdapter(adapter);
 
@@ -135,6 +144,13 @@ public class VisualizarPostagemFragment extends SharedFragment implements OnMapR
             }
         });
         TextInputEditText txtComentario = binding.txtNovoComentario;
+
+        if(usuarioEstaLogado()) {
+            txtComentario.setVisibility(View.VISIBLE);
+            binding.layNovoComentario.setVisibility(View.VISIBLE);
+        }
+
+
         txtComentario.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // If the event is a key-down event on the "enter" button

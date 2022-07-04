@@ -64,6 +64,12 @@ public class LikeRepository {
         return likes;
     }
 
+    public MutableLiveData<ArrayList<LikeModel>> getLikesFromPostagem(String idPostagem){
+        loadLikesByPostagem(idPostagem);
+        likes.setValue(likeModels);
+        return likes;
+    }
+
     private void loadLikesByUser(){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("likes");
 
@@ -74,6 +80,28 @@ public class LikeRepository {
                 for (DataSnapshot data : dataSnapshot.getChildren()){
                     LikeModel likeModel = data.getValue(LikeModel.class);
                     if(likeModel.getIdUsuario() != null && likeModel.getIdUsuario().equals(mAuth.getUid()))
+                        likeModels.add(likeModel);
+                }
+                likes.postValue(likeModels);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+    private void loadLikesByPostagem(String idPostagem){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("likes");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                likeModels.clear();
+                for (DataSnapshot data : dataSnapshot.getChildren()){
+                    LikeModel likeModel = data.getValue(LikeModel.class);
+                    if(likeModel.getIdPostagem() != null && likeModel.getIdPostagem().equals(idPostagem) && likeModel.isReacao())
                         likeModels.add(likeModel);
                 }
                 likes.postValue(likeModels);
